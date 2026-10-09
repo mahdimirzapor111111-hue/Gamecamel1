@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>نبرد پادشاهان - بازی کارتی شاهنامه</title>
+    <meta name="description" content="بازی استراتژیک کارتی و نبرد قهرمانان اساطیری شاهنامه با قابلیت ادیتور پیشرفته، چیدمان ۶×۳، مسابقات آنلاین، اتحادیه و بازارچه" />
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('App Error:', e.message, e.filename, e.lineno);
+        if (window.AndroidBridge && window.AndroidBridge.log) {
+          window.AndroidBridge.log('JS_ERROR: ' + e.message + ' (' + e.filename + ':' + e.lineno + ')');
+        }
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('Unhandled Promise Rejection:', e.reason);
+        if (window.AndroidBridge && window.AndroidBridge.log) {
+          window.AndroidBridge.log('JS_PROMISE_ERROR: ' + (e.reason && e.reason.message ? e.reason.message : e.reason));
+        }
+      });
+      // Clear any pre-existing default account so the user always creates/logs into their own account
+      try {
+        var defaultIds = ['user_sohrab_champion', 'user_arash_archer', 'user_rostam', 'user_player', 'user_kaveh_smith'];
+        var activeId = localStorage.getItem('nabard_active_user_id_v3') || localStorage.getItem('nabard_active_user_id_v1');
+        if (defaultIds.indexOf(activeId) !== -1) {
+          localStorage.removeItem('nabard_active_user_id_v3');
+          localStorage.removeItem('nabard_active_user_id_v1');
+        }
+      } catch (e) {}
+    </script>
+    <script src="./assets/github-cloud-sync.js"></script>
+    <script type="module" crossorigin src="./assets/index-WA3TFXYh.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C-lJ72WD.css">
+    <style>
+      :root {
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+        --safe-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        padding-bottom: var(--safe-bottom);
+        padding-top: var(--safe-top);
+      }
+      /* Tablet adaptive styles */
+      .tablet-layout main {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .tablet-layout .grid {
+        gap: 1.25rem;
+      }
+    </style>
+    <script>
+      // Android bridge and navigation back button handler
+      window.handleAndroidBack = function() {
+        // 1. Close any open dialogs/overlays first
+        var closeBtns = document.querySelectorAll('button[title*="بستن"], button[aria-label*="بستن"], button:has(svg.lucide-x)');
+        for (var i = 0; i < closeBtns.length; i++) {
+          if (closeBtns[i].offsetParent !== null) {
+            closeBtns[i].click();
+            return true;
+          }
+        }
+        // 2. If in a secondary tab, navigate back to Palace / Home
+        var homeBtn = document.querySelector('button[aria-label*="کاخ"], button:has(img[alt*="کاخ"]), button:has(img[src*="palace"])');
+        var isHomeActive = homeBtn && (homeBtn.classList.contains('text-amber-400') || homeBtn.classList.contains('bg-amber-500/20'));
+        if (homeBtn && !isHomeActive && homeBtn.offsetParent !== null) {
+          homeBtn.click();
+          return true;
+        }
+        return false;
+      };
+      if (window.navigator) {
+        window.navigator.vibrate = function(pattern) {
+          if (window.AndroidBridge && window.AndroidBridge.vibrate) {
+            var ms = Array.isArray(pattern) ? (pattern[0] || 40) : (pattern || 40);
+            window.AndroidBridge.vibrate(ms);
+            return true;
+          }
+          return false;
+        };
+      }
+    </script>
+  </head>
+  <body class="bg-[#120b08] text-stone-100 select-none antialiased overflow-hidden">
+    <div id="root"></div>
+  </body>
+</html>

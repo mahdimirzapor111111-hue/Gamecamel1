@@ -1,0 +1,6 @@
+{
+  "name": "نبرد پادشاهان",
+  "description": "بازی کارتی اساطیری شاهنامه - نبرد قهرمانان اساطیری، چیدمان ارتش ۶×۳ و هفت‌خوان رستم برای گوشی و تبلت",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
